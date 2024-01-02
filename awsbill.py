@@ -130,13 +130,14 @@ if __name__ == "__main__":
     company_billed = company()
     fee = admin_fee(company_billed)
 
+    # Get the costs for the month
     month_cost = enter_month_cost(bill_month)
 
     # Access the dictionary that is returned from the website_work() function
     # website_work() function is responsible for collecting any additional labor and the cost
     website_work_dict = website_work()
 
-    # Calculate the total costs based on the fee + any additional work
+    # Calculate the total costs based on the fee + month cost + any additional work
     final_total = get_total(fee, month_cost, website_work_dict) 
 
     # Print the final message
