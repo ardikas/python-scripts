@@ -55,8 +55,8 @@ def company():
 def admin_fee(company_billed):
 
     if company_billed == "Sound Chiropractic":
-        print("Admin fee: $ 5.00\n")
-        adminfee = 5.00
+        print("Admin fee: $ 10.00\n")
+        adminfee = 10.00
         return adminfee
     elif company_billed == "Ring Road Limo Services":
         print("Admin fee: $ 10.00\n")
