@@ -65,8 +65,13 @@ def admin_fee(company_billed):
 
 def enter_month_cost(bill_month):
     # use format to ensure there are two places after the decimal point, i.e 1.00
-    cost_for_the_month = float(input("Please enter the cost for the month of " + bill_month + ": "))
+    cost_for_the_month = float(input("Please enter the EC2 cost for the month of " + bill_month + ": "))
     return cost_for_the_month
+
+def enter_ipv4_cost(bill_month):
+    # use format to ensure there are two places after the decimal point, i.e 1.00
+    cost_for_ipv4 = float(input("Please enter the public IPv4 address cost for the month of " + bill_month + ": "))
+    return cost_for_ipv4
 
 def website_work():
     # Create an empty dictionary in python. Then input a number to loop a number of times you want to take input. 
@@ -93,17 +98,18 @@ def website_work():
         
     return work
 
-def get_total(fee, month_cost, website_work_dict):
+def get_total(fee, month_cost, ipv4_cost, website_work_dict):
     total = 0
-    total = fee + month_cost + sum(website_work_dict.values())
+    total = fee + month_cost + ipv4_cost + sum(website_work_dict.values())
     return total
 
-def final_message(bill_year, bill_month, company_billed, fee, month_cost, website_work_dict, final_total):
+def final_message(bill_year, bill_month, company_billed, fee, month_cost, ipv4_cost, website_work_dict, final_total):
     print("\n=======COPY & PASTE THE MESSAGE BELOW=======")
     print("\n" + bill_month + " " + bill_year + " AWS Bill for " + company_billed +"\n")
 
     # use format to ensure there are two places after the decimal point, i.e 1.00
-    print("AWS " + bill_month + " " + bill_year + " - $" + "{0:.2f}".format(month_cost))
+    print("AWS EC2 cost for " + bill_month + " " + bill_year + " - $" + "{0:.2f}".format(month_cost))
+    print("Public IPv4 address cost for " + bill_month + " " + bill_year + " - $" + "{0:.2f}".format(ipv4_cost))
     print("Admin fee - $", "{0:.2f}".format(fee))
 
     print("\nWebsite work: ")
@@ -130,17 +136,20 @@ if __name__ == "__main__":
     company_billed = company()
     fee = admin_fee(company_billed)
 
-    # Get the costs for the month
+    # Get the EC2 Reserved Instances costs for the month
     month_cost = enter_month_cost(bill_month)
+
+    # Get the costs for In-use Public IPv4 address per hour
+    ipv4_cost = enter_ipv4_cost(bill_month)
 
     # Access the dictionary that is returned from the website_work() function
     # website_work() function is responsible for collecting any additional labor and the cost
     website_work_dict = website_work()
 
     # Calculate the total costs based on the fee + month cost + any additional work
-    final_total = get_total(fee, month_cost, website_work_dict) 
+    final_total = get_total(fee, month_cost, ipv4_cost, website_work_dict) 
 
     # Print the final message
-    final_message(bill_year, bill_month, company_billed, fee, month_cost, website_work_dict, final_total)
+    final_message(bill_year, bill_month, company_billed, fee, month_cost, ipv4_cost, website_work_dict, final_total)
 
 
